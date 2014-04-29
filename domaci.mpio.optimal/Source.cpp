@@ -8,6 +8,8 @@
 #include <string>
 #include <ctime>
 #include <iomanip>
+#include <windows.h>
+#include <tchar.h>
 using namespace std;
 static int populatebyrow(CPXENVptr env, CPXLPptr lp);
 
@@ -26,28 +28,76 @@ long B_beg;
 long M_beg;
 long Z_beg;
 long NUMCOLS;
+vector<string> ret;
+
+void dirList(string &dir)
+{
+	
+	WIN32_FIND_DATA ffd;
+	wchar_t path[100];
+	int i = 0;
+	do
+	{
+		path[i] = dir.c_str()[i];
+	} while (dir.c_str()[i++] != 0);
+
+	if (path[_tcslen(path) - 1] != '\\')
+		_tcscat(path, _T("\\"));
+	_tcscat(path, _T("*.*"));
+
+	HANDLE hFind = FindFirstFile(path, &ffd);
+	if (hFind == INVALID_HANDLE_VALUE)
+	{
+		//cerr << _T("Invalid handle value.") << GetLastError() << endl;
+		return;
+	}
+
+	bool finished = false;
+	while (!finished)
+	{
+		//cout << ffd.cFileName << endl;
+		char name[50];
+		int i = 0;
+		do
+		{
+			name[i] = ffd.cFileName[i];
+		} while (ffd.cFileName[i++] != 0);
+
+		ret.push_back(name);
+		if (ret[ret.size() - 1][0] == '.')
+			ret.erase(ret.begin() + ret.size() - 1);
+		if (!FindNextFile(hFind, &ffd))
+			finished = true;
+	}
+
+}
+
 
 int main(int argc, char *argv[])
 {
-
-
-	for (int inst = 1; inst <= 20; inst++)
+	string dir = "instance";
+	//string name = "small";
+	dirList(dir);
+	ofstream out, outExt;
+	out.open("log.txt");
+	outExt.open("logExt.txt");
+	for (int i = 13; i < ret.size(); i++)
 	{
 		time_t startTime = clock();
 		std::ifstream in;
-		ofstream out;
+		
 		CPXENVptr     env = NULL;
 		CPXLPptr      lp = NULL;
 		int           status = 0;
 		ostringstream s;
-		s << "instance/instExtraLarge" << inst << ".txt";
+		s << dir <<"/" << ret[i] ;
 		string instName = s.str();
 
 		/* Initialize the variables */
-
+		
 		in.open(instName, std::fstream::in);
-		out.open("instExtraLarge.txt", ios_base::app);
-		out << instName<<" ";
+		
+		//out <<  inst<<" ";
 		in >> K1 >> K2 >> J1 >> J2 >> I >> SC_cost >> BS_cost >> SC_cap >> BS_cap >> BS_rad;
 		K = K1 + K2;
 		J = J1 + J2;
@@ -85,14 +135,16 @@ int main(int argc, char *argv[])
 		env = CPXopenCPLEX(&status);
 		if (env == NULL)
 		{
+			cout << "greska!!!!" << endl;
 			std::cerr << "Failure to create environment, error %d." << std::endl;
 			goto TERMINATE;
 		}
 
 
 
-		status = CPXsetdblparam(env, CPX_PARAM_TILIM, 300);
+		status = CPXsetdblparam(env, CPX_PARAM_TILIM, 3600);
 		if (status) {
+			cout << "greska!!!!" << endl;
 			cerr << "Failure to set time limit, error %d." << endl;
 			goto TERMINATE;
 		}
@@ -102,6 +154,7 @@ int main(int argc, char *argv[])
 		lp = CPXcreateprob(env, &status, "optimal.wireless.network.design");
 
 		if (lp == NULL) {
+			cout << "greska!!!!" << endl;
 			cerr << "Failed to create LP." << endl;
 			goto TERMINATE;
 		}
@@ -109,11 +162,12 @@ int main(int argc, char *argv[])
 		status = populatebyrow(env, lp);
 
 		if (status) {
+			cout << "greska!!!!" << endl;
 			cerr << "Failed to populate problem." << endl;
 			goto TERMINATE;
 		}
 
-		CPXwriteprob(env, lp, "problem.lp", "LP");
+		//CPXwriteprob(env, lp, "problem.lp", "LP");
 
 
 
@@ -121,12 +175,19 @@ int main(int argc, char *argv[])
 		CPXmipopt(env, lp);
 		
 		double objval;
-		if (CPXgetobjval(env, lp, &objval))
+		double *x = (double *)malloc(NUMCOLS * sizeof(double));
+		outExt << ret[i] << endl;
+		//cout << instances[i] << endl;
+		if (CPXsolution(env, lp, NULL, &objval, x, NULL, NULL, NULL))
 		{
 			out << "No solution" << endl;
-
+			
 			goto TERMINATE;
 		}
+		
+
+		//if (CPXgetobjval(env, lp, &objval))
+		
 		
 		/*ostringstream s1;
 		s1 << "sol" << inst;
@@ -135,10 +196,33 @@ int main(int argc, char *argv[])
 		int cvorova = CPXgetnodecnt(env, lp);
 
 		int iteracija = CPXgetmipitcnt(env, lp);
+		
+		out << (int)objval << " " << std::setprecision(8) << (clock() - startTime) / 1000.0 << endl;
+		outExt << (int)objval << " " << std::setprecision(8) << (clock() - startTime) / 1000.0 << endl;
 
-		out << (int)objval << " " << std::setprecision(8) << (clock() - startTime) / 1000.0 << " " << cvorova << " " << iteracija << endl;
-
-		out.close();
+		outExt << "bs: ";
+		for (int i = 0; i < J2; i++)
+		{
+			if (x[B_beg + i] == 1)
+			{
+				outExt << i+J1 << "->";
+				for (int j = 0; j < K; j++)
+				{
+					if (x[Y_beg + i*K + j] == 1)
+						outExt << j << " ";
+				}
+			}
+		}
+		outExt << endl << "sc: ";
+		for (int i = 0; i < K2; i++)
+		{
+			//out << x[M_beg + i] << " ";
+			if (x[M_beg + i] == 1)
+				outExt << i + K1<< " ";
+		}
+		outExt << endl;
+		
+		
 
 	TERMINATE:
 
@@ -170,7 +254,8 @@ int main(int argc, char *argv[])
 		}
 
 	}
-
+	out.close();
+	outExt.close();
 	return 0;
 
 }  /* END main */
