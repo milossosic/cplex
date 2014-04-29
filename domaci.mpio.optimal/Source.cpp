@@ -30,7 +30,7 @@ long Z_beg;
 long NUMCOLS;
 vector<string> ret;
 
-void dirList(string &dir)
+void dirList(string dir, string instName)
 {
 	
 	WIN32_FIND_DATA ffd;
@@ -49,10 +49,11 @@ void dirList(string &dir)
 	if (hFind == INVALID_HANDLE_VALUE)
 	{
 		//cerr << _T("Invalid handle value.") << GetLastError() << endl;
-		return;
+		return ;
 	}
 
 	bool finished = false;
+	bool diffe;
 	while (!finished)
 	{
 		//cout << ffd.cFileName << endl;
@@ -62,26 +63,46 @@ void dirList(string &dir)
 		{
 			name[i] = ffd.cFileName[i];
 		} while (ffd.cFileName[i++] != 0);
-
+		if (instName.size() > 0)
+		{
+			if (name[0] == '.')
+			{
+				if (!FindNextFile(hFind, &ffd))
+					finished = true;
+				continue;
+			}
+			diffe = false;
+			for (int i = 0; i < instName.size() && !diffe; i++)
+			{
+				if (instName[i] != name[i])
+				{
+					if (!FindNextFile(hFind, &ffd))
+						finished = true;
+					diffe = true;
+				}
+			}
+			if (diffe)
+				continue;
+		}
 		ret.push_back(name);
 		if (ret[ret.size() - 1][0] == '.')
 			ret.erase(ret.begin() + ret.size() - 1);
-		if (!FindNextFile(hFind, &ffd))
+
+		if (!diffe && !FindNextFile(hFind, &ffd))
 			finished = true;
 	}
-
 }
 
 
 int main(int argc, char *argv[])
 {
 	string dir = "instance";
-	//string name = "small";
-	dirList(dir);
+	string name = "medium";
+	dirList(dir,name);
 	ofstream out, outExt;
 	out.open("log.txt");
 	outExt.open("logExt.txt");
-	for (int i = 13; i < ret.size(); i++)
+	for (int i = 0; i < ret.size(); i++)
 	{
 		time_t startTime = clock();
 		std::ifstream in;
