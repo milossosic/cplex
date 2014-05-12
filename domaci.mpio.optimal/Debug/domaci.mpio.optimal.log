@@ -1,5 +1,5 @@
-﻿Build started 29/04/2014 17:05:27.
-     1>Project "D:\Milos\mpio\seminarski\cplex\domaci.mpio.optimal\domaci.mpio.optimal.vcxproj" on node 2 (Build target(s)).
+﻿Build started 5/3/2014 3:08:21 PM.
+     1>Project "D:\Milos\seminarski\cplex\domaci.mpio.optimal\domaci.mpio.optimal.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\IBM\ILOG\CPLEX125\cplex\include" /I"C:\Program Files (x86)\cplex\include" /Zi /nologo /W3 /WX- /Od /Oy- /D IL_STD /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
          Source.cpp
@@ -9,27 +9,27 @@
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h(284) : see declaration of 'wcscat'
      1>Source.cpp(64): warning C4244: '=' : conversion from 'WCHAR' to 'char', possible loss of data
      1>Source.cpp(75): warning C4018: '<' : signed/unsigned mismatch
-     1>Source.cpp(105): warning C4018: '<' : signed/unsigned mismatch
-     1>Source.cpp(200): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
-                 Source.cpp(146) : definition of 'i' ignored
-                 Source.cpp(105) : definition of 'i' used
-     1>Source.cpp(330): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>Source.cpp(108): warning C4018: '<' : signed/unsigned mismatch
+     1>Source.cpp(203): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 Source.cpp(149) : definition of 'i' ignored
+                 Source.cpp(108) : definition of 'i' used
+     1>Source.cpp(333): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h(112) : see declaration of 'strcpy'
-     1>Source.cpp(342): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>Source.cpp(345): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h(112) : see declaration of 'strcpy'
-     1>Source.cpp(354): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>Source.cpp(357): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h(112) : see declaration of 'strcpy'
-     1>Source.cpp(365): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>Source.cpp(368): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h(112) : see declaration of 'strcpy'
-     1>Source.cpp(380): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>Source.cpp(383): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h(112) : see declaration of 'strcpy'
-     1>Source.cpp(413): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>Source.cpp(416): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h(112) : see declaration of 'strcpy'
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Milos\mpio\seminarski\cplex\Debug\domaci.mpio.optimal.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\IBM\ILOG\CPLEX125\cplex\lib\x86_windows_vs2010\stat_mta" cplex125.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Milos\mpio\seminarski\cplex\Debug\domaci.mpio.optimal.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Milos\mpio\seminarski\cplex\Debug\domaci.mpio.optimal.lib" /MACHINE:X86  Debug\Source.obj
-         domaci.mpio.optimal.vcxproj -> D:\Milos\mpio\seminarski\cplex\Debug\domaci.mpio.optimal.exe
-     1>Done Building Project "D:\Milos\mpio\seminarski\cplex\domaci.mpio.optimal\domaci.mpio.optimal.vcxproj" (Build target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Milos\seminarski\cplex\Debug\domaci.mpio.optimal.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\IBM\ILOG\CPLEX125\cplex\lib\x86_windows_vs2010\stat_mta" cplex125.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Milos\seminarski\cplex\Debug\domaci.mpio.optimal.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Milos\seminarski\cplex\Debug\domaci.mpio.optimal.lib" /MACHINE:X86  Debug\Source.obj
+         domaci.mpio.optimal.vcxproj -> D:\Milos\seminarski\cplex\Debug\domaci.mpio.optimal.exe
+     1>Done Building Project "D:\Milos\seminarski\cplex\domaci.mpio.optimal\domaci.mpio.optimal.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.86
+Time Elapsed 00:00:00.87

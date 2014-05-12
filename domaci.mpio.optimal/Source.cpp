@@ -97,11 +97,14 @@ void dirList(string dir, string instName)
 int main(int argc, char *argv[])
 {
 	string dir = "instance";
-	string name = "medium";
+	string name = "extraExtraLarge";
 	dirList(dir,name);
 	ofstream out, outExt;
-	out.open("log.txt");
-	outExt.open("logExt.txt");
+	ostringstream s1,s2;
+	s1 << "cplex" << name<<".txt";
+	s2 << s1.str() << "Ext" << ".txt";
+	out.open(s1.str());
+	outExt.open(s2.str());
 	for (int i = 0; i < ret.size(); i++)
 	{
 		time_t startTime = clock();

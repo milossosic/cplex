@@ -1,2 +1,15 @@
 *.txt
 *.lp
+*.tlog
+*.log
+*.idb
+*.pdb
+*.opensdf
+*.obj
+*.tlog
+Debug/domaci.mpio.optimal.ilk
+*.exe
+*.ilk
+*.tlog
+*.idb
+*.pdb
